@@ -251,27 +251,4 @@ class Clean:
         logger.info("successful aggregation")
         return dict(per_x)
 
-if __name__ == '__main__':
-    train_path = sys.argv[1]
-    test_path = sys.argv[2]
-    store_path = sys.argv[3]
-    store = pd.read_csv(store_path)
-    df = pd.read_csv(train_path)
-    clean_df = Clean(df)
-    clean_df.merge_df(store,'Store')
-    clean_df.save(name='data/unclean_train.csv')
-    clean_df.drop_missing_values()
-    clean_df.fix_outliers('Sales',25000)
-    clean_df.remove_unnamed_cols()
-    clean_df.transfrom_time_series("Store","Date")
-    clean_df.save(name="data/training.csv")
-    df = pd.read_csv(test_path)
-    clean_df = Clean(df)
-    clean_df.merge_df(store,'Store')
-    clean_df.save(name='data/unclean_test.csv')
-    clean_df.drop_missing_values()
-    clean_df.fix_outliers('Sales',25000)
-    clean_df.remove_unnamed_cols()
-    clean_df.transfrom_time_series("Store","Date")
-    clean_df.get_df().drop('Id',axis=1,inplace=True)
-    clean_df.save(name="data/testing.csv")
+##
